@@ -34,7 +34,7 @@ data = data[:-1]
 for d in data:
     d = d["data"]
     txt = d["body"]
-    t=multisplit(txt,[" ",",","-","_","/","(",")",":","?",".","[","]","'","|","*","#",";"])
+    t=multisplit(txt,[" ",",","-","_","/","(",")",":","?",".","[","]","'","|","*","#",";","+"])
     for tt in t:
         try:
             f.write(tt)
@@ -47,16 +47,27 @@ f.close()
 
 stops=open('stops.txt').read()
 f = open("comments.txt", "r")
+merge =open("synonyms.txt", "r")
 outfile = "cleaned_file.txt"
-fout = open(outfile, "w+")
+fout = open(outfile, "w")
 stops=multisplit(stops,["\n"])
 for line in f:
     for word in stops:
         if(str(line)==str(word+"\n")):
             line=""
     fout.write(line)
+
+'''    for word in merge:
+        m=word.split(":")
+        mk=m[0]
+        mv=m[1].split(",")
+        if(line in mv):
+            print('yes')
+            line=mk
+'''
 fout.close()
 f.close()
+merge.close()
 f = open(outfile, "r")
 
 
